@@ -1,22 +1,27 @@
 import React from "react";
-import { motion } from "framer-motion";
+import ServiceCard from "../componets/ServiceCard";
+import { Tooth, Sparkles, Smile } from "lucide-react";
 
-export default function ServiceCard({ title, desc, icon }) {
+export default function Services() {
+  const services = [
+    { title: "Teeth Cleaning", desc: "Professional cleaning for healthy gums.", icon: <Tooth size={28} /> },
+    { title: "Whitening", desc: "Brighten your smile safely and effectively.", icon: <Sparkles size={28} /> },
+    { title: "Cosmetic Dentistry", desc: "Improve your smile’s aesthetics.", icon: <Smile size={28} /> },
+  ];
+
   return (
-    <motion.article
-      whileHover={{ y: -5, scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 200 }}
-      className="card bg-base-100 shadow-md rounded-2xl p-5 border border-gray-100 hover:shadow-lg cursor-pointer"
-    >
-      <div className="flex items-start gap-4">
-        <div className="bg-primary/10 text-primary p-3 rounded-full">
-          {icon}
-        </div>
-        <div>
-          <h4 className="font-semibold text-lg mb-1">{title}</h4>
-          <p className="text-sm text-gray-600 leading-snug">{desc}</p>
-        </div>
+    <div className="container mx-auto px-6 py-10">
+      <h1 className="text-3xl font-bold text-blue-600 mb-8 text-center">Our Services</h1>
+      <div className="grid md:grid-cols-3 gap-6">
+        {services.map((s, i) => (
+          <ServiceCard 
+            key={i} 
+            title={s.title} 
+            desc={s.desc} 
+            icon={s.icon} 
+          />
+        ))}
       </div>
-    </motion.article>
+    </div>
   );
 }
