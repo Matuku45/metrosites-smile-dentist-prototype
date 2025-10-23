@@ -1,128 +1,84 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X, Phone, Mail, Sparkles, Heart } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-
+import React from "react";
 export default function Header() {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const nav = [
-    { name: "Home", to: "/" },
-    { name: "Services", to: "/services" },
-    { name: "Appointment", to: "/appointment" },
-    { name: "Testimonials", to: "/testimonials" },
-    { name: "About", to: "/about" },
-    { name: "Contact", to: "/contact" },
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "About Us", path: "/about" },
+    { name: "Services", path: "/services" },
+    { name: "Testimonials", path: "/testimonials" },
+    { name: "Appointment", path: "/appointment" },
+    { name: "Contact", path: "/contact" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-white to-sky-50 shadow-md border-b border-blue-100">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+    <header className="bg-white shadow-md sticky top-0 z-50">
+      <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-3 group">
-          <motion.div
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 0.8 }}
-            className="w-10 h-10 rounded-full bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg"
-          >
-            <Sparkles size={22} />
-          </motion.div>
-          <div>
-            <motion.div
-              whileHover={{ color: "#0284c7" }}
-              className="text-lg font-semibold text-gray-800"
-            >
-              Smile Dentist
-            </motion.div>
-            <div className="text-sm text-gray-500">
-              Dental Care & Cosmetic Dentistry
-            </div>
-          </div>
+        <Link to="/" className="flex items-center space-x-2">
+          <span className="text-2xl font-bold text-[#4A90E2]">🦷</span>
+          <span className="font-bold text-gray-800">Smile Dentist</span>
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          {nav.map((n) => (
-            <motion.div whileHover={{ y: -2 }} key={n.to}>
-              <NavLink
-                to={n.to}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-sky-600 font-semibold relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-sky-500"
-                    : "text-gray-700 hover:text-sky-600 transition-colors duration-200"
-                }
-              >
-                {n.name}
-              </NavLink>
-            </motion.div>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-6">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.name}
+              to={link.path}
+              className={({ isActive }) =>
+                isActive ? "text-[#4A90E2] font-semibold" : "text-gray-700 hover:text-[#4A90E2]"
+              }
+            >
+              {link.name}
+            </NavLink>
           ))}
         </nav>
 
-        {/* Contact Info + Menu Button */}
-        <div className="flex items-center gap-4">
-          <motion.div
-            className="hidden md:flex flex-col text-right"
-            whileHover={{ scale: 1.05 }}
-          >
-            <span className="text-sm font-medium flex items-center gap-1 text-gray-600">
-              <Phone size={14} className="text-sky-500" /> Call us
-            </span>
-            <a href="tel:+1234567890" className="text-sm text-sky-600 hover:underline">
-              +1 (234) 567-890
-            </a>
-          </motion.div>
+        {/* CTA Button */}
+        <Link
+          to="/appointment"
+          className="hidden md:inline-block bg-[#4A90E2] text-white px-4 py-2 rounded hover:bg-[#357ABD]"
+        >
+          Book an Appointment
+        </Link>
 
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            className="md:hidden p-2 rounded-md bg-sky-100 text-sky-700"
-            onClick={() => setOpen(!open)}
-            aria-label="menu"
-          >
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </motion.button>
-        </div>
+        {/* Mobile Menu Toggle */}
+        <button
+          className="md:hidden"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
-      {/* Mobile Nav */}
-      <AnimatePresence>
-        {open && (
-          <motion.nav
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden bg-white border-t border-gray-200 shadow-inner"
-          >
-            <div className="px-4 py-4 flex flex-col gap-3">
-              {nav.map((n) => (
-                <NavLink
-                  key={n.to}
-                  to={n.to}
-                  className="block py-2 text-gray-700 hover:text-sky-600 font-medium transition-colors"
-                  onClick={() => setOpen(false)}
-                >
-                  {n.name}
-                </NavLink>
-              ))}
-
-              <div className="flex flex-col mt-4 gap-2 text-sm">
-                <a
-                  href="tel:+1234567890"
-                  className="flex items-center gap-2 text-gray-700 hover:text-sky-600"
-                >
-                  <Phone size={16} className="text-sky-500" /> +1 (234) 567-890
-                </a>
-                <a
-                  href="mailto:info@smiledentist.co.za"
-                  className="flex items-center gap-2 text-gray-700 hover:text-sky-600"
-                >
-                  <Mail size={16} className="text-sky-500" /> info@smiledentist.co.za
-                </a>
-              </div>
-            </div>
-          </motion.nav>
-        )}
-      </AnimatePresence>
+      {/* Mobile Navigation */}
+      {isOpen && (
+        <nav className="md:hidden bg-white shadow-md">
+          <ul className="flex flex-col p-4 space-y-2">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.name}
+                to={link.path}
+                className="text-gray-700 hover:text-[#4A90E2] font-medium"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.name}
+              </NavLink>
+            ))}
+            <Link
+              to="/appointment"
+              className="bg-[#4A90E2] text-white px-4 py-2 rounded mt-2 block text-center"
+              onClick={() => setIsOpen(false)}
+            >
+              Book an Appointment
+            </Link>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }
