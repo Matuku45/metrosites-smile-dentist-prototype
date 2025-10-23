@@ -1,5 +1,5 @@
 import React from "react";
-import TestimonialCard from "../components/TestimonialCard";
+import TestimonialCard from "../componets/TestimonialCard";
 
 export default function Testimonials() {
   // Sample testimonial data

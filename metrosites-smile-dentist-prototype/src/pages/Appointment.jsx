@@ -1,5 +1,5 @@
 import React from "react";
-import AppointmentForm from "../components/AppointmentForm";
+import AppointmentForm from "../componets/AppointmentForm";
 
 export default function Appointment() {
   return (

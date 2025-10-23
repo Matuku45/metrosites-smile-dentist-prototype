@@ -6,7 +6,7 @@ import Services from "./pages/Services";
 import Testimonials from "./pages/Testimonials";
 import Appointment from "./pages/Appointment";
 import Contact from "./pages/Contact";
-import Header from "./components/Header"; // Import Header component
+import Header from "./componets/Header"; // Import Header component
 import "./App.css";
 
 export default function App() {

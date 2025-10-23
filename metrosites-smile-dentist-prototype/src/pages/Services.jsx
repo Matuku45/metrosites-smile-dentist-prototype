@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sparkles, Smile } from 'lucide-react';
-import ServiceCard from '../components/ServiceCard';
+import ServiceCard from '../componets/ServiceCard';
 
 export default function Services() {
   const services = [
